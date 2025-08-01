@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高级美发染发配方色卡集</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #8d6e63;
+            --accent: #e8a1a1;
+            --dark: #1a1a2e;
+            --light: #f8f1f7;
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            font-size: 15px; /* 整体字体缩小 */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 头部样式 */
+        .header {
+            text-align: center;
+            padding: 30px 20px; /* 减小头部高度 */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.1;
+        }
+
+        .header h1 {
+            font-size: 2.5rem; /* 标题字体缩小 */
+            font-weight: 700;
+            background: linear-gradient(45deg, #f7cac9, #f7786b, #e8a1a1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header p {
+            font-size: 1rem; /* 副标题字体缩小 */
+            max-width: 700px;
+            margin: 0 auto;
+            color: #b0b0b0;
+        }
+
+        .brand {
+            display: inline-block;
+            background: rgba(141, 110, 99, 0.2);
+            color: #e8a1a1;
+            padding: 3px 15px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* 选项卡样式 */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .tabs::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 80%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #aaa;
+            font-size: 1rem; /* 选项卡字体缩小 */
+            font-weight: 600;
+            padding: 12px 30px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            letter-spacing: 1px;
+        }
+
+        .tab-btn.active {
+            color: white;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 15px;
+            right: 15px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: #ddd;
+        }
+
+        /* 内容区域 */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* 色卡容器 */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 22px;
+            margin-bottom: 40px;
+        }
+
+        /* 色卡样式 */
+        .color-card {
+            background: var(--card-bg);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .color-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            border-color: rgba(232, 161, 161, 0.2);
+        }
+
+        .color-header {
+            display: flex;
+            align-items: center;
+            padding: 18px;
+            transition: background 0.3s ease;
+        }
+
+        .color-header:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .color-swatch {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            margin-right: 16px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .color-info {
+            flex-grow: 1;
+        }
+
+        .color-name {
+            font-size: 1.15rem; /* 名称字体缩小 */
+            font-weight: 600;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .color-base {
+            font-size: 0.9rem; /* 基础信息字体缩小 */
+            color: #aaa;
+        }
+
+        .toggle-icon {
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+            color: #aaa;
+        }
+
+        /* 色卡内容 */
+        .color-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.215, 0.61, 0.355, 1), padding 0.5s ease;
+        }
+
+        .color-card.expanded .color-content {
+            max-height: 1000px;
+            padding: 0 20px 18px;
+        }
+
+        .color-card.expanded .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .formula-item {
+            padding: 15px 0; /* 减小内边距 */
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+        }
+
+        .formula-item:last-child {
+            border-bottom: none;
+        }
+
+        .formula-title {
+            font-size: 1rem; /* 标题字体缩小 */
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .formula-title i {
+            margin-right: 8px;
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        .formula-desc {
+            font-size: 0.95rem; /* 描述字体缩小 */
+            color: #ccc;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .ratio-bar {
+            height: 8px; /* 比例条高度减小 */
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 12px 0 8px;
+            overflow: hidden;
+        }
+
+        .ratio-fill {
+            height: 100%;
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 页脚样式 */
+        .footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 20px;
+            color: #777;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .creator {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .color-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab-btn {
+                padding: 10px 18px;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .color-swatch {
+                width: 42px;
+                height: 42px;
+            }
+            
+            .color-name {
+                font-size: 1rem;
+            }
+            
+            .tab-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* 颜色样本定义 */
+        .swatch-pink-brown { background: linear-gradient(45deg, #e8a1a1, #c67f7f); }
+        .swatch-gray-brown { background: linear-gradient(45deg, #a8a8a8, #7a7a7a); }
+        .swatch-blue-black { background: linear-gradient(45deg, #2c3e50, #34495e); }
+        .swatch-gray-white { background: linear-gradient(45deg, #e0e0e0, #bdbdbd); }
+        .swatch-black-tea { background: linear-gradient(45deg, #3d3d3d, #5a5a5a); }
+        .swatch-milk-tea { background: linear-gradient(45deg, #f5d5b9, #e7c19f); }
+        .swatch-pink-milk-tea { background: linear-gradient(45deg, #f8c3cd, #e8a1b4); }
+        .swatch-green { background: linear-gradient(45deg, #a3c4a3, #7aa37a); }
+        .swatch-cold-brown { background: linear-gradient(45deg, #b8a58d, #9c8a72); }
+        .swatch-rose-gold { background: linear-gradient(45deg, #f7cac9, #f7786b); }
+        .swatch-green-ash { background: linear-gradient(45deg, #b5ead7, #8ac4a5); }
+        .swatch-gray-green { background: linear-gradient(45deg, #a8b6b9, #7395ae); }
+        .swatch-milk-tea-gray { background: linear-gradient(45deg, #d4b483, #b2986d); }
+        .swatch-black-brown { background: linear-gradient(45deg, #3d3d3d, #5a5a5a); }
+        .swatch-black-tea-gray { background: linear-gradient(45deg, #4a4e4d, #3b3b3b); }
+        .swatch-milk-tea-cold { background: linear-gradient(45deg, #d4b483, #a8b6b9); }
+        .swatch-pink-brown-2 { background: linear-gradient(45deg, #f7cac9, #e8a1b4); }
+        .swatch-cover-white { background: linear-gradient(45deg, #b5a597, #8b7d70); }
+        .swatch-grapefruit { background: linear-gradient(45deg, #ff9a8b, #ff6b6b); }
+        .swatch-brown-green { background: linear-gradient(45deg, #8b7d70, #6b8c9e); }
+
+        /* 比例条颜色 */
+        .fill-pink-brown { background: linear-gradient(90deg, #e8a1a1, #c67f7f); }
+        .fill-gray-brown { background: linear-gradient(90deg, #a8a8a8, #7a7a7a); }
+        .fill-blue-black { background: linear-gradient(90deg, #2c3e50, #34495e); }
+        .fill-gray-white { background: linear-gradient(90deg, #e0e0e0, #bdbdbd); }
+        .fill-black-tea { background: linear-gradient(90deg, #3d3d3d, #5a5a5a); }
+        .fill-milk-tea { background: linear-gradient(90deg, #f5d5b9, #e7c19f); }
+        .fill-pink-milk-tea { background: linear-gradient(90deg, #f8c3cd, #e8a1b4); }
+        .fill-green { background: linear-gradient(90deg, #a3c4a3, #7aa37a); }
+        .fill-cold-brown { background: linear-gradient(90deg, #b8a58d, #9c8a72); }
+        .fill-rose-gold { background: linear-gradient(90deg, #f7cac9, #f7786b); }
+        .fill-green-ash { background: linear-gradient(90deg, #b5ead7, #8ac4a5); }
+        .fill-gray-green { background: linear-gradient(90deg, #a8b6b9, #7395ae); }
+        .fill-milk-tea-gray { background: linear-gradient(90deg, #d4b483, #b2986d); }
+        .fill-black-brown { background: linear-gradient(90deg, #3d3d3d, #5a5a5a); }
+        .fill-black-tea-gray { background: linear-gradient(90deg, #4a4e4d, #3b3b3b); }
+        .fill-milk-tea-cold { background: linear-gradient(90deg, #d4b483, #a8b6b9); }
+        .fill-pink-brown-2 { background: linear-gradient(90deg, #f7cac9, #e8a1b4); }
+        .fill-cover-white { background: linear-gradient(90deg, #b5a597, #8b7d70); }
+        .fill-grapefruit { background: linear-gradient(90deg, #ff9a8b, #ff6b6b); }
+        .fill-brown-green { background: linear-gradient(90deg, #8b7d70, #6b8c9e); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>高级美发染发配方色卡集</h1>
+            <p>专业染发配方，色彩科学与艺术的美妙结合</p>
+            <div class="brand">丽柜 · 可丽秀 · 专业配方</div>
+        </div>
+
+        <!-- 选项卡 -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="ligui">丽柜配方</button>
+            <button class="tab-btn" data-tab="kelixiu">可丽秀配方</button>
+        </div>
+
+        <!-- 丽柜内容区域 - 10个完整配方 -->
+        <div class="content-section active" id="ligui-content">
+            <div class="color-grid">
+                <!-- 粉棕色 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-pink-brown"></div>
+                        <div class="color-info">
+                            <div class="color-name">粉棕色</div>
+                            <div class="color-base">底色要求: 5-6度</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>配方比例</div>
+                            <div class="formula-desc">8/11 + 7/75 + 6/45 + 0/66 + 0/00 + 6%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-pink-brown" style="width: 60%"></div>
+                            </div>
+                            <div class="formula-desc">60 + 60 + (15-20) + 5 + 10</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 盖白发五度棕 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-gray-brown"></div>
+                        <div class="color-info">
+                            <div class="color-name">盖白发五度棕</div>
+                            <div class="color-base">无需特别底色</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>配方比例</div>
+                            <div class="formula-desc">6/77 + 5/0 + 2/0 + 0/00 + 9%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-gray-brown" style="width: 74%"></div>
+                            </div>
+                            <div class="formula-desc">130 + 30 + 5 + 10</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 蓝黑 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-blue-black"></div>
+                        <div class="color-info">
+                            <div class="color-name">蓝黑</div>
+                            <div class="color-base">需漂色处理</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>漂一遍配方</div>
+                            <div class="formula-desc">4BL + 0/88 + 3/0 + 6%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-blue-black" style="width: 87%"></div>
+                            </div>
+                            <div class="formula-desc">100 + 10 + (5-7)</div>
+                        </div>
+                        
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>漂两遍配方(7-8度)</div>
+                            <div class="formula-desc">4BL + 0/8 + 3/0 + 6%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-blue-black" style="width: 83%"></div>
+                            </div>
+                            <div class="formula-desc">100 + 10 + 10</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 灰棕偏灰 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-gray-brown"></div>
+                        <div class="color-info">
+                            <div class="color-name">灰棕偏灰</div>
+                            <div class="color-base">底色要求: 7-8度 (漂1-2遍)</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>配方比例</div>
+                            <div class="formula-desc">6/77 + 6/11 + 0/11 + 8/43 + 0/66 + 3/0 + 0/00 + 6%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-gray-brown" style="width: 70%"></div>
+                            </div>
+                            <div class="formula-desc">70 + 80 + (10-15) + 5 + (3-4) + 3 + 10</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 冷棕偏黑茶 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-black-tea"></div>
+                        <div class="color-info">
+                            <div class="color-name">冷棕偏黑茶</div>
+                            <div class="color-base">两段色处理</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>黑色部分配方</div>
+                            <div class="formula-desc">8/11 + jma + 0/22 + 0/00 + 6%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-black-tea" style="width: 64%"></div>
+                            </div>
+                            <div class="formula-desc">100:30:15:10</div>
+                        </div>
+                        
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>黄色部分配方</div>
+                            <div class="formula-desc">4/77 + 8/11 + jam + 0/00 + 6%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-black-tea" style="width: 50%"></div>
+                            </div>
+                            <div class="formula-desc">50:50:(15-20):10</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 灰白色 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-gray-white"></div>
+                        <div class="color-info">
+                            <div class="color-name">灰白色</div>
+                            <div class="color-base">底色要求: 8度至8度半</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>配方比例</div>
+                            <div class="formula-desc">8/11 + 0/11 + 梳子刮一点0/66 + 10%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-gray-white" style="width: 91%"></div>
+                            </div>
+                            <div class="formula-desc">30:3</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 黑茶 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-black-tea"></div>
+                        <div class="color-info">
+                            <div class="color-name">黑茶</div>
+                            <div class="color-base">两段色处理</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>黑色部分配方</div>
+                            <div class="formula-desc">6/11 + jma + 4/0 + 6% + 3%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-black-tea" style="width: 74%"></div>
+                            </div>
+                            <div class="formula-desc">70:20:5-6 (1:1) 双氧</div>
+                        </div>
+                        
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>黄色部分配方</div>
+                            <div class="formula-desc">4/77 + 5/0 + 3%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-black-tea" style="width: 77%"></div>
+                            </div>
+                            <div class="formula-desc">100:30</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 奶茶色 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-milk-tea"></div>
+                        <div class="color-info">
+                            <div class="color-name">奶茶色(偏黄)</div>
+                            <div class="color-base">底色要求: 7-8度 (漂两边)</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>配方比例</div>
+                            <div class="formula-desc">8/11 + 7/75 + 0/00 + 洗发水 + 水 + 6%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-milk-tea" style="width: 60%"></div>
+                            </div>
+                            <div class="formula-desc">60:20:10:10:10+40g (沐浴十分钟) 或+9%染</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 偏粉奶茶 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-pink-milk-tea"></div>
+                        <div class="color-info">
+                            <div class="color-name">偏粉奶茶(正奶茶)</div>
+                            <div class="color-base">无需特别底色</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>配方比例</div>
+                            <div class="formula-desc">8/11 + 7/75 + 0/00 + 洗发水 + 6%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-pink-milk-tea" style="width: 50%"></div>
+                            </div>
+                            <div class="formula-desc">50:30:10:10+50g</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 闷青偏绿 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-green"></div>
+                        <div class="color-info">
+                            <div class="color-name">闷青偏绿</div>
+                            <div class="color-base">底色要求: 黑色或4.5度棕</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>配方比例</div>
+                            <div class="formula-desc">0/11 + 0/88 + 0/00 + 12%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-green" style="width: 59%"></div>
+                            </div>
+                            <div class="formula-desc">50:15:20:85</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 可丽秀内容区域 - 13个完整配方 -->
+        <div class="content-section" id="kelixiu-content">
+            <div class="color-grid">
+                <!-- 玫瑰粉金 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-rose-gold"></div>
+                        <div class="color-info">
+                            <div class="color-name">玫瑰粉金</div>
+                            <div class="color-base">发质：漂到7度</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>配方比例</div>
+                            <div class="formula-desc">6/11 + 5/75 + 8/43 + 0/45 + 3% + 护发素</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-rose-gold" style="width: 75%"></div>
+                            </div>
+                            <div class="formula-desc">30:40:5:10:40+120</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 闷青亚麻色 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-green-ash"></div>
+                        <div class="color-info">
+                            <div class="color-name">闷青亚麻色</div>
+                            <div class="color-base">发质：细软，两段色（发根黑，下面5度棕）</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>发根配方</div>
+                            <div class="formula-desc">0/00 + 0/88 + 0/22 + 9%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-green-ash" style="width: 80%"></div>
+                            </div>
+                            <div class="formula-desc">80:5:5+85</div>
+                        </div>
+                        
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>发中配方</div>
+                            <div class="formula-desc">0/00 + 0/11 + 0/88 + 0/22 + 12%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-green-ash" style="width: 85%"></div>
+                            </div>
+                            <div class="formula-desc">170（两支）:20:10:10+210</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 青灰色 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-gray-green"></div>
+                        <div class="color-info">
+                            <div class="color-name">青灰色</div>
+                            <div class="color-base">发质要求：漂1-2遍</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>配方比例</div>
+                            <div class="formula-desc">7/77 + 8/11 + 0/22 + 0/88 + 0/00 + 3%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-gray-green" style="width: 70%"></div>
+                            </div>
+                            <div class="formula-desc">70:70:5:5:10+160</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 奶茶灰棕 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-milk-tea-gray"></div>
+                        <div class="color-info">
+                            <div class="color-name">奶茶灰棕（偏棕色）</div>
+                            <div class="color-base">发质要求：漂1-2遍</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>配方比例</div>
+                            <div class="formula-desc">7/77 + 8/11 + 0/88 + 0/66 + 0/00 + 护发素 + 3%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-milk-tea-gray" style="width: 65%"></div>
+                            </div>
+                            <div class="formula-desc">70:70:（5～7）:5:10:70:+60（刚开始跑青灰，后面跑奶茶棕）</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 黑棕色 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-black-brown"></div>
+                        <div class="color-info">
+                            <div class="color-name">黑棕色</div>
+                            <div class="color-base">很黑，阳光下一点颜色</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>配方比例</div>
+                            <div class="formula-desc">4/77 + 4/0 + 6%（一步刷）</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-black-brown" style="width: 95%"></div>
+                            </div>
+                            <div class="formula-desc">100:5+105</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 黑茶青灰色 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-black-tea-gray"></div>
+                        <div class="color-info">
+                            <div class="color-name">黑茶青灰色（680年卡）</div>
+                            <div class="color-base">发质要求：细软</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>发根配方</div>
+                            <div class="formula-desc">6/11 + jma + 0/22 + 6%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-black-tea-gray" style="width: 80%"></div>
+                            </div>
+                            <div class="formula-desc">80:10:5+95</div>
+                        </div>
+                        
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>发梢配方</div>
+                            <div class="formula-desc">8/11 + jma + 0/22 + 6%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-black-tea-gray" style="width: 80%"></div>
+                            </div>
+                            <div class="formula-desc">80:10:5</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 奶茶冷棕色 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-milk-tea-cold"></div>
+                        <div class="color-info">
+                            <div class="color-name">奶茶冷棕色（不偏青）</div>
+                            <div class="color-base">头发软是亚麻色，偏亮</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>发根配方</div>
+                            <div class="formula-desc">6/11 + 0/22 + jma + 6% + 9%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-milk-tea-cold" style="width: 80%"></div>
+                            </div>
+                            <div class="formula-desc">80:5:5+45+45</div>
+                        </div>
+                        
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>发梢配方</div>
+                            <div class="formula-desc">0/00 + 8/11 + 0/22 + jma + 8/43 + 12%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-milk-tea-cold" style="width: 85%"></div>
+                            </div>
+                            <div class="formula-desc">160+20+5+10+5+200</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 粉棕色 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-pink-brown"></div>
+                        <div class="color-info">
+                            <div class="color-name">粉棕色</div>
+                            <div class="color-base">3cm新生发，下面5.5度棕色</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>发根配方</div>
+                            <div class="formula-desc">13-55 + 8/45 + 6% + 9%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-pink-brown" style="width: 80%"></div>
+                            </div>
+                            <div class="formula-desc">80+10+45+45</div>
+                        </div>
+                        
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>发梢配方</div>
+                            <div class="formula-desc">7/75 + 13-55 + 0/00 + 8/45 + 0/66 + 12%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-pink-brown" style="width: 75%"></div>
+                            </div>
+                            <div class="formula-desc">60:60:60:30:5+175</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 粉棕 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-pink-brown-2"></div>
+                        <div class="color-info">
+                            <div class="color-name">粉棕</div>
+                            <div class="color-base">正常或者细软，粗硬的加0/00</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>配方比例</div>
+                            <div class="formula-desc">13/55（or13-58）+ 0/45 + 0/66 + 0/00（粗硬的加）+12%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-pink-brown-2" style="width: 75%"></div>
+                            </div>
+                            <div class="formula-desc">100:15:6:10+141</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 盖白发 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-cover-white"></div>
+                        <div class="color-info">
+                            <div class="color-name">盖白发</div>
+                            <div class="color-base">多种盖白发方案</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>思路❶</div>
+                            <div class="formula-desc">发根：目标色 + 3/0 + 9%（12%）</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-cover-white" style="width: 90%"></div>
+                            </div>
+                            <div class="formula-desc">160（两支）:（15-17）+175</div>
+                            <div class="formula-desc">发梢：如果5度以上可加少量8/43或者45</div>
+                        </div>
+                        
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>思路❷</div>
+                            <div class="formula-desc">4/77具有盖白发能力</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-cover-white" style="width: 50%"></div>
+                            </div>
+                            <div class="formula-desc">比如：4/77 + 9% → 160+160</div>
+                        </div>
+                        
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>五度及以上盖白发</div>
+                            <div class="formula-desc">用13/系列 + 3/0 + 9%（12%）</div>
+                        </div>
+                        
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>五度以下盖白发</div>
+                            <div class="formula-desc">7/系列 + 3/0 + 9%（6%）</div>
+                        </div>
+                        
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>五度粉棕盖白发</div>
+                            <div class="formula-desc">13/55（or13-58）+ 0/45 + 0/66 + 3/0 + 0/00（粗硬的加）+12%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-cover-white" style="width: 85%"></div>
+                            </div>
+                            <div class="formula-desc">150+（10-15）+5+（10-15）+（15-20）+12%</div>
+                        </div>
+                        
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>五度棕盖白发</div>
+                            <div class="formula-desc">13/cb + 3/0 + 0/00 + 9%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-cover-white" style="width: 90%"></div>
+                            </div>
+                            <div class="formula-desc">160+15+10+185</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 冷棕 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-cold-brown"></div>
+                        <div class="color-info">
+                            <div class="color-name">冷棕</div>
+                            <div class="color-base">发质：黑发</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>发根配方</div>
+                            <div class="formula-desc">8/11 + jma + 0/28 + 9%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-cold-brown" style="width: 80%"></div>
+                            </div>
+                            <div class="formula-desc">80:10:5+95</div>
+                        </div>
+                        
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>发梢配方</div>
+                            <div class="formula-desc">8/11 + jma + 0/28 +（9%+12）</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-cold-brown" style="width: 85%"></div>
+                            </div>
+                            <div class="formula-desc">160:10:5:175</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 西柚色 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-grapefruit"></div>
+                        <div class="color-info">
+                            <div class="color-name">西柚色（粉橙色）</div>
+                            <div class="color-base">发质：漂到7.5-9度</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>7.5-8度配方</div>
+                            <div class="formula-desc">9/55 + 0/43 + 3%（6%）+ 护发素</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-grapefruit" style="width: 65%"></div>
+                            </div>
+                            <div class="formula-desc">100:10:50:3倍（稀释）</div>
+                        </div>
+                        
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>8.5-9度配方</div>
+                            <div class="formula-desc">9/55 + 0/43 + 3%（6%）+ 护发素</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-grapefruit" style="width: 60%"></div>
+                            </div>
+                            <div class="formula-desc">90:30:50:3倍（稀释）</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 棕青冷色 -->
+                <div class="color-card">
+                    <div class="color-header">
+                        <div class="color-swatch swatch-brown-green"></div>
+                        <div class="color-info">
+                            <div class="color-name">棕青冷色（色板上6/2颜色）</div>
+                            <div class="color-base">发质要求；退色一遍，6.5度左右</div>
+                        </div>
+                        <div class="toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="color-content">
+                        <p class="color-base" style="margin-bottom: 15px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px;">褪色完不均匀先打底：13/cb + 8/43 + 9% → 100:10:50 或者7/77 + 8/43 + 9%</p>
+                        <div class="formula-item">
+                            <div class="formula-title"><i class="fas fa-flask"></i>配方比例</div>
+                            <div class="formula-desc">6/11 + 5/77 + jma + 5/0 + 6%</div>
+                            <div class="ratio-bar">
+                                <div class="ratio-fill fill-brown-green" style="width: 80%"></div>
+                            </div>
+                            <div class="formula-desc">160:80:10:10+260</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <div class="footer">
+            <p>专业染发配方色卡集</p>
+            <p>信息图 By <span class="creator">@一泽</span></p>
+        </div>
+    </div>
+
+    <script>
+        // 选项卡切换功能
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // 移除所有活动状态
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+                
+                // 添加当前活动状态
+                button.classList.add('active');
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(`${tabId}-content`).classList.add('active');
+            });
+        });
+
+        // 色卡展开/收起功能
+        document.querySelectorAll('.color-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const card = header.closest('.color-card');
+                card.classList.toggle('expanded');
+            });
+        });
+
+        // 添加悬停微动效
+        const cards = document.querySelectorAll('.color-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-6px)';
+                card.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.4)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                if (!card.classList.contains('expanded')) {
+                    card.style.transform = 'translateY(0)';
+                    card.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.3)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
